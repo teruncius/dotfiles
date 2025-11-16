@@ -1,0 +1,91 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "os",
+          "style": "diamond",
+          "trailing_diamond": "\ue0b0",
+          "background": "#444444",
+          "foreground": "#cecece",
+          "template": " {{.Icon}} "
+        },
+        {
+          "background": "#444444",
+          "foreground": "#cecece",
+          "style": "plain",
+          "template": "<transparent>\ue0b0</> {{ .CurrentDate | date .Format }} <background,transparent>\ue0b0</>",
+          "type": "time"
+        },
+        {
+          "background": "#444444",
+          "foreground": "#cecece",
+          "properties": {
+            "folder_separator_icon": " <transparent,background>\ue0b1</> ",
+            "home_icon": "~",
+            "style": "agnoster_full"
+          },
+          "style": "plain",
+          "template": "<transparent>\ue0b0</> \uf74a {{ .Path }} <background,transparent>\ue0b0</>",
+          "type": "path"
+        },
+        {
+          "background": "#fffb38",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
+          ],
+          "foreground": "#111111",
+          "properties": {
+            "branch_max_length": 25,
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "style": "plain",
+          "template": "<transparent>\ue0b0</> {{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} <background,transparent>\ue0b0</>",
+          "type": "git"
+        },
+        {
+          "background": "#444444",
+          "foreground": "#cecece",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "<transparent>\ue0b0</> {{ .FormattedMs }} <background,transparent>\ue0b0</>",
+          "type": "executiontime"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "background": "#008f00",
+          "background_templates": [
+            "{{ if gt .Code 0 }}#8f0000{{ end }}"
+          ],
+          "foreground": "#ffffff",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "diamond",
+          "template": " {{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }} ",
+          "trailing_diamond": "\ue0b0",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "console_title_template": "{{ .Folder }}",
+  "final_space": true,
+  "version": 2
+}
